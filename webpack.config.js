@@ -13,13 +13,32 @@ module.exports = {
   },
   devtool: 'eval-source-map',
   resolve: {
-    extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
+    extensions: ['.js', '.jsx', '.json', '.ts', '.tsx', '.css', '.scss'],
   },
   module: {
     rules: [
       {
         test: /\.(ts|tsx)$/,
         loader: 'ts-loader',
+      },
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader', 'sass-loader'],
+      },
+      {
+        test: /\.s[a|c]ss$/i,
+        use: ['style-loader', 'css-loader'],
+      },
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[path][name].[ext]',
+            },
+          },
+        ],
       },
       { enforce: 'pre', test: /\.js$/, loader: 'source-map-loader' },
     ],
